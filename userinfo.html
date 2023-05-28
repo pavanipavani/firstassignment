@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<title>details</title>
+		<style>
+		.form
+		{
+			display:flex;
+			flex-direction:column;
+			margin:50px 500px 50px 500px;
+			padding:10px;
+			font-size:25px;	
+			border:1px solid black;
+		}
+		input
+		{
+			margin:10px;
+			padding:10px;
+		}
+		.button
+		{
+			margin:1px 150px 1px 150px;
+			border-radius:20px;
+		}
+		.edit
+		{
+			width:70px;
+			margin-left:20px;
+			height:30px;
+			margin-top:20px;
+		}
+		.delete
+		{
+			width:70px;
+			margin-left:300px;
+			height:30px;
+			margin-top:-30px;
+			
+		}
+		.submit
+		{
+			width:100px;
+			margin-left:160px;
+			height:30px;
+			margin-top:10px;
+			border-radius:20px;
+		}
+		
+		</style>
+	</head>
+	<body>
+		<div class ="form">
+			<input class="name" type = "text" placeholder="Name" />
+			<input class="password" type="password" placeholder ="password" />
+			<input class="user" type="text" placeholder ="username" />
+			<input class="email" type="email" placeholder="Email" />
+			<input class="number" type="number" placeholder="phone Number" />
+			<input class ="button" type="submit" value="create" />
+			<button class="submit">submit</button>
+			<button class ="edit">edit</button>
+			<button class="delete">detete</button>
+		</div>
+		<div class ="display"></div>
+	</body>
+	<script>
+		let result = JSON.parse(localStorage.getItem("userdetails")) ||[];
+		let button = document.querySelector(".button");
+		button.onclick = function(){
+			let name = document.querySelector(".name").value;
+			let password = document.querySelector(".password").value;
+			let user = document.querySelector (".user").value;
+			let email = document.querySelector(".email").value;
+			let number = document.querySelector(".number").value;
+			if(name !=="" && password !=="" && user !==""&& email !==""&& number !==""){
+				alert("successfull");
+				for(let i=0;i<result.length;i++){
+					if(result[i].username == user && result[i].password == password){
+						alert("user already exist");
+						return;
+					}
+				}
+				localStorage.setItem("userData",JSON.stringify([...result,{name,password,user,email,number}]));
+				console.log(localStorage.getItem("userData"));
+				alert("successfull");
+				//window.location.href="invalid.html";
+			}
+			else
+			{
+				alert("fill datails");
+			}
+		}
+		
+		let table=document.createElement("table");
+		let tableRow=document.createElement("tr");
+		let tableHead1=document.createElement("th");
+		tableHead1.textContent="Name";
+		let tableHead2=document.createElement("th");
+		tableHead2.textContent="password";
+		let tableHead3=document.createElement("th");
+		tableHead3.textContent="username";
+		let tableHead4=document.createElement("th");
+		tableHead4.textContent="email";
+		let tableHead5=document.createElement("th");
+		tableHead5.textContent="number";
+		tableRow.append(tableHead1,tableHead2,tableHead3,tableHead4,tableHead5);
+		table.appendChild(tableRow);
+		console.log(table);
+		let display=document.querySelector(".display");
+		display.appendChild(table);
+		
+		
+		let submit = document.querySelector(".submit");
+		submit.onclick = function(){
+		
+			let tableRow=document.createElement("tr");
+			let tableData1=document.createElement("td");
+			tableData1.innerText=name;
+			tableData1.style.color="brown";
+			let tableData2=document.createElement("td");
+			tableData2.innerText=password;
+			tableData2.style.color="green";
+			let tableData3=document.createElement("td");
+			tableData3.innerText=user;
+			tableData3.style.color="red";
+			let tableData4=document.createElement("td");
+			tableData4.innerText=email;
+			tableData4.style.color="blue";
+			let tableData5=document.createElement("td");
+			tableData5.innerText=number;
+			tableRow.append(tableData1,tableData2,tableData3,tableData4,tableData5);
+			table.appendChild(tableRow);
+			let display=document.querySelector(".display");
+			display.appendChild(table);
+			console.log(display);
+		}
+		
+			
+	</script>
+</html>
